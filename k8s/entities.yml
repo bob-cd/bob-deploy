@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bob-entities
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bob-entities
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: bob-entities
+    spec:
+      containers:
+        - image: ghcr.io/bob-cd/entities
+          name: bob-entities
+          env:
+            - name: BOB_STORAGE_URL
+              value: jdbc:postgresql://bob-db:5432/bob
+            - name: BOB_QUEUE_URL
+              value: amqp://bob-queue:5672

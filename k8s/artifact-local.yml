@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: artifact-local
+spec:
+  ports:
+    - port: 8001
+  selector:
+    app: artifact-local
+  clusterIP: None
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: artifact-local
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: artifact-local
+  template:
+    metadata:
+      labels:
+        app: artifact-local
+    spec:
+      containers:
+        - image: ghcr.io/bob-cd/artifact-local
+          name: artifact-local
+          ports:
+            - containerPort: 8001

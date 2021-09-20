@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bob-db
+spec:
+  serviceName: bob-db
+  selector:
+    matchLabels:
+      app: bob-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bob-db
+    spec:
+      containers:
+        - name: bob-db
+          image: postgres:alpine
+          volumeMounts:
+            - name: bob-db-disk
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_DB
+              value: bob
+            - name: POSTGRES_USER
+              value: bob
+            - name: POSTGRES_PASSWORD
+              value: bob
+  volumeClaimTemplates:
+    - metadata:
+        name: bob-db-disk
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bob-db
+spec:
+  selector:
+    app: bob-db
+  type: LoadBalancer
+  ports:
+    - port: 5432
+      targetPort: 5432

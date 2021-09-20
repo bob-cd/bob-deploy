@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bob-runner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bob-runner
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: bob-runner
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/bob-runner: unconfined
+    spec:
+      containers:
+        - image: ghcr.io/bob-cd/runner
+          name: bob-runner
+          resources:
+            limits:
+              smarter-devices/fuse: 1
+            requests:
+              smarter-devices/fuse: 1
+          env:
+            - name: BOB_STORAGE_URL
+              value: jdbc:postgresql://bob-db:5432/bob
+            - name: BOB_QUEUE_URL
+              value: amqp://bob-queue:5672
+          securityContext:
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - MKNOD
+            seccompProfile:
+              type: Unconfined
+            seLinuxOptions:
+              level: disable

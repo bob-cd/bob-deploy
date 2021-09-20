@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bob-apiserver
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 7777
+      protocol: TCP
+      targetPort: 7777
+  selector:
+    app: bob-apiserver
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bob-apiserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bob-apiserver
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: bob-apiserver
+    spec:
+      containers:
+        - image: ghcr.io/bob-cd/apiserver
+          name: bob-apiserver
+          env:
+            - name: BOB_STORAGE_URL
+              value: jdbc:postgresql://bob-db:5432/bob
+            - name: BOB_QUEUE_URL
+              value: amqp://bob-queue:5672
+          ports:
+            - containerPort: 7777

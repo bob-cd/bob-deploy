@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bob-queue
+spec:
+  serviceName: bob-queue
+  selector:
+    matchLabels:
+      app: bob-queue
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bob-queue
+    spec:
+      containers:
+        - name: bob-queue
+          image: rabbitmq:3-alpine
+          volumeMounts:
+            - name: bob-queue-disk
+              mountPath: /var/lib/rabbitmq/mnesia
+  volumeClaimTemplates:
+    - metadata:
+        name: bob-queue-disk
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bob-queue
+spec:
+  selector:
+    app: bob-queue
+  type: LoadBalancer
+  ports:
+    - port: 5672
+      targetPort: 5672
