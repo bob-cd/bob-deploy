@@ -28,11 +28,9 @@ spec:
               smarter-devices/fuse: 1
             requests:
               smarter-devices/fuse: 1
-          env:
-            - name: BOB_STORAGE_URL
-              value: jdbc:postgresql://bob-db:5432/bob
-            - name: BOB_QUEUE_URL
-              value: amqp://bob-queue:5672
+          envFrom:
+            - configMapRef:
+                name: system-config
           securityContext:
             capabilities:
               add:

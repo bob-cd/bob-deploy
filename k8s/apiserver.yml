@@ -35,10 +35,8 @@ spec:
       containers:
         - image: ghcr.io/bob-cd/apiserver
           name: bob-apiserver
-          env:
-            - name: BOB_STORAGE_URL
-              value: jdbc:postgresql://bob-db:5432/bob
-            - name: BOB_QUEUE_URL
-              value: amqp://bob-queue:5672
+          envFrom:
+            - configMapRef:
+                name: system-config
           ports:
             - containerPort: 7777

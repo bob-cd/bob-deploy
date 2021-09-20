@@ -7,6 +7,7 @@ data:
   conf.yaml: |
     - devicematch: ^fuse$
       nummaxdevices: 20
+
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -41,13 +42,6 @@ spec:
             capabilities:
               drop:
                 - ALL
-          resources:
-            limits:
-              cpu: 100m
-              memory: 15Mi
-            requests:
-              cpu: 10m
-              memory: 15Mi
           volumeMounts:
             - name: device-plugin
               mountPath: /var/lib/kubelet/device-plugins
