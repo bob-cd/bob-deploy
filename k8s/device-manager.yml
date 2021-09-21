@@ -30,9 +30,6 @@ spec:
         node.kubernetes.io/bootstrap-checkpoint: "true"
     spec:
       priorityClassName: system-node-critical
-      hostname: smarter-device-management
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: smarter-device-manager
           image: registry.gitlab.com/arm-research/smarter/smarter-device-manager
