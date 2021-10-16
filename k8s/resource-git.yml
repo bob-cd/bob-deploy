@@ -29,4 +29,11 @@ spec:
         - image: ghcr.io/bob-cd/resource-git
           name: resource-git
           ports:
-            - containerPort: 8000
+            - name: service-port
+              containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: service-port
+            initialDelaySeconds: 3
+            periodSeconds: 3

@@ -40,4 +40,4 @@ spec:
     app: bob-queue
   ports:
     - port: 5672
-      targetPort: 5672
+  clusterIP: None
