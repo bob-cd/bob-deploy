@@ -26,6 +26,18 @@ From the root of the dir:
   - `kubectl delete -f k8s/`
   - `kubectl delete pvc --all`
 
+### [Docker Compose](https://docs.docker.com/compose/)
+
+#### Requirements
+- [Docker](https://docs.docker.com/get-docker/) 20+
+- [docker compose](https://docs.docker.com/compose/install/#install-compose)
+
+#### Deploying
+
+From the root of the dir:
+- Run `docker-compose up` to create all the necessary services.
+- The service should be available on port `7777`.
+
 ## License
 
 Copyright © 2021 Bob authors.
