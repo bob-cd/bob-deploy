@@ -21,7 +21,7 @@ This gathers reference deployments for [Bob](https://bob-cd.github.io/) on vario
 
 From the root of the dir:
 - Run `kubectl apply -f k8s/` to create all the necessary services.
-- The service should be available on port `7777`.
+- Run `kubectl port-forward service/bob-apiserver 7777:7777` to forward the `7777` port on the local machine and should be available on it.
 - To clean up, run:
   - `kubectl delete -f k8s/`
   - `kubectl delete pvc --all`
