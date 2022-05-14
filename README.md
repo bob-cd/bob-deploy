@@ -26,20 +26,20 @@ From the root of the dir:
   - `kubectl delete -f k8s/`
   - `kubectl delete pvc --all`
 
-### [Docker Compose](https://docs.docker.com/compose/)
+### [Docker](https://www.docker.com/) or [Podman](https://podman.io/)
 
 #### Requirements
-- [Docker](https://docs.docker.com/get-docker/) 20+
-- [docker compose](https://docs.docker.com/compose/install/#install-compose)
+- [Docker](https://docs.docker.com/get-docker/) 20+ or [Podman](https://podman.io/getting-started/installation) 3.4+
+- [docker compose](https://docs.docker.com/compose/install/#install-compose) or [podman-compose](https://github.com/containers/podman-compose)
 
 #### Deploying
 
 From the root of the dir:
-- Run `docker-compose up` to create all the necessary services.
+- Run either `docker-compose up` or `podman-compose up` to create all the necessary services.
 - The service should be available on port `7777`.
 
 ## License
 
-Copyright © 2021 Bob authors.
+Copyright © 2022 Bob authors.
 
 Distributed under the MIT License. See LICENSE.
