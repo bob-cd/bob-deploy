@@ -29,13 +29,14 @@ From the root of the dir:
 ### [Docker](https://www.docker.com/) or [Podman](https://podman.io/)
 
 #### Requirements
-- [Docker](https://docs.docker.com/get-docker/) 20+ or [Podman](https://podman.io/getting-started/installation) 4+
-- [docker compose](https://docs.docker.com/compose/install/#install-compose) or [podman-compose](https://github.com/containers/podman-compose)
+- [Podman](https://podman.io/getting-started/installation) 4+ or [Rootless Docker](https://docs.docker.com/engine/security/rootless/) 20.10+
+- [podman-compose](https://github.com/containers/podman-compose) or [docker compose](https://docs.docker.com/compose/install/#install-compose)
 
 #### Deploying
 
-Using podman is recommended here as it can do truly **rootless containers in addition to being unprivileged**.
-- Run `podman-compose up` or `docker-compose up` if using docker to create all the necessary services.
+From the root of the project:
+- Run `podman-compose up` or `docker-compose up` to create all the necessary services.
+- A little while later ...
 - The service should be available on port `7777`.
 
 ## License

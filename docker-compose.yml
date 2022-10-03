@@ -11,15 +11,14 @@ services:
     environment:
       BOB_STORAGE_URL: jdbc:postgresql://storage:5432/bob
       BOB_QUEUE_URL: amqp://queue:5672
+    user: podman
     devices:
       - /dev/fuse
     security_opt:
+      - label=disable
+      # next 2 are needed for rootless docker/containerd
       - seccomp=unconfined
       - apparmor=unconfined
-      - label=disable
-    cap_add: # TODO: Remove these if possible, alternatively try rootless containerd
-      - sys_admin
-      - mknod
 
   entities:
     image: ghcr.io/bob-cd/entities
