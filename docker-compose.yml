@@ -17,7 +17,7 @@ services:
       - seccomp=unconfined
       - apparmor=unconfined
       - label=disable
-    cap_add: # TODO: Remove these if possible
+    cap_add: # TODO: Remove these if possible, alternatively try rootless containerd
       - sys_admin
       - mknod
 
