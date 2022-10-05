@@ -45,11 +45,12 @@ services:
       BOB_QUEUE_URL: amqp://queue:5672
 
   queue:
-    image: docker.io/library/rabbitmq:3-alpine
+    image: docker.io/library/rabbitmq:3-management-alpine
     networks:
       - bob-net
     ports:
       - 5672:5672
+      - 15672:15672
     volumes:
       - queuedata:/var/lib/rabbitmq/mnesia
 
