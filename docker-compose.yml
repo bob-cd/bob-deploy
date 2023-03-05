@@ -20,17 +20,6 @@ services:
       - seccomp=unconfined
       - apparmor=unconfined
 
-  entities:
-    image: ghcr.io/bob-cd/entities
-    networks:
-      - bob-net
-    depends_on:
-      - storage
-      - queue
-    environment:
-      BOB_STORAGE_URL: jdbc:postgresql://storage:5432/bob
-      BOB_QUEUE_URL: amqp://queue:5672
-
   apiserver:
     image: ghcr.io/bob-cd/apiserver
     ports:

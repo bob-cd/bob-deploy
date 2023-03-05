@@ -4,7 +4,6 @@ This gathers reference deployments for [Bob](https://bob-cd.github.io/) on vario
 - [PostgreSQL](https://www.postgresql.org/)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - [apiserver](https://github.com/bob-cd/bob/tree/main/apiserver)
-- [entities](https://github.com/bob-cd/bob/tree/main/entities)
 - [runner](https://github.com/bob-cd/bob/tree/main/runner)
 - [resource-git](https://github.com/bob-cd/resource-git)
 - [artifact-store](https://github.com/bob-cd/artifact-local)
