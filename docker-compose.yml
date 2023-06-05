@@ -11,6 +11,7 @@ services:
     environment:
       BOB_STORAGE_URL: jdbc:postgresql://storage:5432/bob
       BOB_QUEUE_URL: amqp://queue:5672
+      BOB_STREAM_URL: rabbitmq-stream://guest:guest@queue:5552/%2f
     user: podman
     devices:
       - /dev/fuse
@@ -32,9 +33,14 @@ services:
     environment:
       BOB_STORAGE_URL: jdbc:postgresql://storage:5432/bob
       BOB_QUEUE_URL: amqp://queue:5672
+      BOB_STREAM_URL: rabbitmq-stream://guest:guest@queue:5552/%2f
 
   queue:
     image: docker.io/library/rabbitmq:3-management-alpine
+    entrypoint: sh
+    command:
+      - "-c"
+      - "rabbitmq-plugins enable --offline rabbitmq_stream && rabbitmq-server"
     networks:
       - bob-net
     ports:
