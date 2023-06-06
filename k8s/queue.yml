@@ -16,10 +16,17 @@ spec:
     spec:
       containers:
         - name: bob-queue
-          image: rabbitmq:3-alpine
+          image: rabbitmq:3-management-alpine
+          command:
+            - sh
+          args:
+            - -c
+            - rabbitmq-plugins enable --offline rabbitmq_stream && rabbitmq-server
           volumeMounts:
             - name: bob-queue-disk
               mountPath: /var/lib/rabbitmq/mnesia
+          env:
+            RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_stream advertised_host bob-queue
   volumeClaimTemplates:
     - metadata:
         name: bob-queue-disk
@@ -40,4 +47,5 @@ spec:
     app: bob-queue
   ports:
     - port: 5672
+    - port: 5552
   clusterIP: None

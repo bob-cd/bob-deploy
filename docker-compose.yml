@@ -39,15 +39,18 @@ services:
     image: docker.io/library/rabbitmq:3-management-alpine
     entrypoint: sh
     command:
-      - "-c"
-      - "rabbitmq-plugins enable --offline rabbitmq_stream && rabbitmq-server"
+      - -c
+      - rabbitmq-plugins enable --offline rabbitmq_stream && rabbitmq-server
     networks:
       - bob-net
     ports:
       - 5672:5672
       - 15672:15672
+      - 5552:5552
     volumes:
       - queuedata:/var/lib/rabbitmq/mnesia
+    environment:
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_stream advertised_host queue
 
   storage:
     image: docker.io/library/postgres:alpine
