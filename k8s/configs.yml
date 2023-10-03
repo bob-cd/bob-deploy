@@ -7,3 +7,4 @@ data:
   BOB_STORAGE_URL: jdbc:postgresql://bob-db:5432/bob
   BOB_QUEUE_URL: amqp://bob-queue:5672
   BOB_STREAM_URL: rabbitmq-stream://guest:guest@bob-queue:5552/%2f
+  BOB_QUEUE_API_URL: http://bob-queue:15672/api
