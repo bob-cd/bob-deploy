@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bob-db
-          image: postgres:alpine
+          image: docker.io/library/postgres:alpine
           volumeMounts:
             - name: bob-db-disk
               mountPath: /var/lib/postgresql/data

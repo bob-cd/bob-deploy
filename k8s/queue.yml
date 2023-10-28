@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bob-queue
-          image: rabbitmq:3-management-alpine
+          image: docker.io/library/rabbitmq:3-management-alpine
           command:
             - sh
           args:
@@ -26,7 +26,8 @@ spec:
             - name: bob-queue-disk
               mountPath: /var/lib/rabbitmq/mnesia
           env:
-            RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_stream advertised_host bob-queue
+            - name: RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS
+              value: -rabbitmq_stream advertised_host "bob-queue"
   volumeClaimTemplates:
     - metadata:
         name: bob-queue-disk
@@ -46,6 +47,10 @@ spec:
   selector:
     app: bob-queue
   ports:
-    - port: 5672
-    - port: 5552
+    - name: amqp
+      port: 5672
+    - name: stream
+      port: 5552
+    - name: api
+      port: 15672
   clusterIP: None
