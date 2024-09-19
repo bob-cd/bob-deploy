@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bob-queue
-          image: docker.io/library/rabbitmq:3-management-alpine
+          image: docker.io/library/rabbitmq:4-management-alpine
           command:
             - sh
           args:

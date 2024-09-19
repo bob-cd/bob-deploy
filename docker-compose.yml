@@ -37,7 +37,7 @@ services:
       BOB_QUEUE_API_URL: http://queue:15672/api
 
   queue:
-    image: docker.io/library/rabbitmq:3-management-alpine
+    image: docker.io/library/rabbitmq:4-management-alpine
     entrypoint: sh
     command:
       - -c
