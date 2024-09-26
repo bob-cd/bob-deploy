@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: bob-runner
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: bob-runner
@@ -17,8 +17,6 @@ spec:
     metadata:
       labels:
         app: bob-runner
-      annotations:
-        container.apparmor.security.beta.kubernetes.io/bob-runner: unconfined
     spec:
       containers:
         - image: ghcr.io/bob-cd/runner
@@ -32,6 +30,8 @@ spec:
             - configMapRef:
                 name: system-config
           securityContext:
+            appArmorProfile:
+              type: Unconfined
             capabilities:
               add:
                 - SYS_ADMIN
