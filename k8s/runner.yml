@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: bob-runner
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: bob-runner
@@ -30,6 +30,8 @@ spec:
             - configMapRef:
                 name: system-config
           securityContext:
+            runAsUser: 1000 # podman
+            runAsGroup: 1000
             appArmorProfile:
               type: Unconfined
             capabilities:

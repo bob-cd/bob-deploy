@@ -67,7 +67,7 @@ services:
       POSTGRES_USER: bob
       POSTGRES_PASSWORD: bob
 
-  artifact:
+  artifact-local:
     image: ghcr.io/bob-cd/artifact-local
     networks:
       - bob-net
@@ -76,7 +76,7 @@ services:
     volumes:
       - artifactdata:/opt/artifacts
 
-  resource:
+  resource-git:
     image: ghcr.io/bob-cd/resource-git
     networks:
       - bob-net
