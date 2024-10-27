@@ -34,10 +34,6 @@ spec:
             runAsGroup: 1000
             appArmorProfile:
               type: Unconfined
-            capabilities:
-              add:
-                - SYS_ADMIN
-                - MKNOD
             seccompProfile:
               type: Unconfined
             seLinuxOptions:
