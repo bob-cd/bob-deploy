@@ -4,11 +4,11 @@ kind: Service
 metadata:
   name: artifact-local
 spec:
+  type: ClusterIP
   ports:
     - port: 8001
   selector:
     app: artifact-local
-  clusterIP: None
 
 ---
 apiVersion: apps/v1

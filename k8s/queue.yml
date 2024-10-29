@@ -44,6 +44,7 @@ kind: Service
 metadata:
   name: bob-queue
 spec:
+  type: ClusterIP
   selector:
     app: bob-queue
   ports:
@@ -53,4 +54,3 @@ spec:
       port: 5552
     - name: api
       port: 15672
-  clusterIP: None

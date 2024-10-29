@@ -43,8 +43,8 @@ kind: Service
 metadata:
   name: bob-db
 spec:
+  type: ClusterIP
   selector:
     app: bob-db
   ports:
     - port: 5432
-  clusterIP: None

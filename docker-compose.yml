@@ -18,6 +18,8 @@ services:
       - /dev/fuse
     security_opt:
       - label=disable
+      # for podman-static
+      #- unmask=/proc/*
       # next 2 are needed for rootless docker/containerd
       - seccomp=unconfined
       - apparmor=unconfined

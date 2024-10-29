@@ -18,6 +18,8 @@ spec:
       labels:
         app: bob-runner
     spec:
+      # for podman-static
+      #hostUsers: false
       containers:
         - image: ghcr.io/bob-cd/runner
           name: bob-runner
@@ -36,5 +38,5 @@ spec:
               type: Unconfined
             seccompProfile:
               type: Unconfined
-            seLinuxOptions:
-              level: disable
+            # for podman-static
+            #procMount: Unmasked

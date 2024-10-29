@@ -4,11 +4,11 @@ kind: Service
 metadata:
   name: resource-git
 spec:
+  type: ClusterIP
   ports:
     - port: 8000
   selector:
     app: resource-git
-  clusterIP: None
 
 ---
 apiVersion: apps/v1
