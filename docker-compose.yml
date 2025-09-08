@@ -85,10 +85,20 @@ services:
     ports:
       - 8000:8000
 
+  logger-local:
+    image: ghcr.io/bob-cd/logger-local
+    networks:
+      - bob-net
+    ports:
+      - 8002:8002
+    volumes:
+      - logs:/opt/logs
+
 networks:
   bob-net:
 
 volumes:
   pgdata:
   artifactdata:
+  logs:
   queuedata:

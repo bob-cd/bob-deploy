@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logger-local
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8002
+  selector:
+    app: logger-local
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger-local
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logger-local
+  template:
+    metadata:
+      labels:
+        app: logger-local
+    spec:
+      containers:
+        - image: ghcr.io/bob-cd/logger-local
+          name: logger-local
+          ports:
+            - name: service-port
+              containerPort: 8002
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: service-port
+            initialDelaySeconds: 3
+            periodSeconds: 3
