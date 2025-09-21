@@ -57,7 +57,7 @@ services:
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_stream advertised_host queue
 
   storage:
-    image: quay.io/coreos/etcd:v3.6.4
+    image: quay.io/coreos/etcd:v3.6.5
     networks:
       - bob-net
     ports:
@@ -67,6 +67,9 @@ services:
       ETCD_ADVERTISE_CLIENT_URLS: http://bob-etcd.etcd:2379
       ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
       ETCD_NAME: bob-etcd
+      ETCD_DATA_DIR: /var/lib/etcd/data
+    volumes:
+      - dbdata:/var/lib/etcd/data
 
   artifact-local:
     image: ghcr.io/bob-cd/artifact-local
@@ -97,7 +100,7 @@ networks:
   bob-net:
 
 volumes:
-  pgdata:
+  dbdata:
   artifactdata:
   logs:
   queuedata:

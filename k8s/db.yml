@@ -16,17 +16,21 @@ spec:
     spec:
       containers:
         - name: bob-db
-          image: docker.io/library/postgres:alpine
+          image: quay.io/coreos/etcd:v3.6.5
           volumeMounts:
             - name: bob-db-disk
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/etcd/data
           env:
-            - name: POSTGRES_DB
-              value: bob
-            - name: POSTGRES_USER
-              value: bob
-            - name: POSTGRES_PASSWORD
-              value: bob
+            - name: ALLOW_NONE_AUTHENTICATION
+              value: "yes"
+            - name: ETCD_ADVERTISE_CLIENT_URLS
+              value: http://bob-db:2379
+            - name: ETCD_LISTEN_CLIENT_URLS
+              value: http://0.0.0.0:2379
+            - name: ETCD_NAME
+              value: bob-db
+            - name: ETCD_DATA_DIR
+              value: /var/lib/etcd/data
   volumeClaimTemplates:
     - metadata:
         name: bob-db-disk
@@ -47,4 +51,4 @@ spec:
   selector:
     app: bob-db
   ports:
-    - port: 5432
+    - port: 2379
