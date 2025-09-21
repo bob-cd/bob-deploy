@@ -9,7 +9,7 @@ services:
       - storage
       - queue
     environment:
-      BOB_STORAGE_URL: jdbc:postgresql://storage:5432/bob
+      BOB_STORAGE_URLS: http://storage:2379
       BOB_QUEUE_URL: amqp://queue:5672
       BOB_STREAM_URL: rabbitmq-stream://guest:guest@queue:5552/%2f
       BOB_QUEUE_API_URL: http://queue:15672/api
@@ -34,7 +34,7 @@ services:
       - queue
       - storage
     environment:
-      BOB_STORAGE_URL: jdbc:postgresql://storage:5432/bob
+      BOB_STORAGE_URLS: http://storage:2379
       BOB_QUEUE_URL: amqp://queue:5672
       BOB_STREAM_URL: rabbitmq-stream://guest:guest@queue:5552/%2f
       BOB_QUEUE_API_URL: http://queue:15672/api
@@ -57,17 +57,16 @@ services:
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_stream advertised_host queue
 
   storage:
-    image: docker.io/library/postgres:alpine
+    image: quay.io/coreos/etcd:v3.6.4
     networks:
       - bob-net
     ports:
-      - 5432:5432
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      - 2379:2379
     environment:
-      POSTGRES_DB: bob
-      POSTGRES_USER: bob
-      POSTGRES_PASSWORD: bob
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      ETCD_ADVERTISE_CLIENT_URLS: http://bob-etcd.etcd:2379
+      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
+      ETCD_NAME: bob-etcd
 
   artifact-local:
     image: ghcr.io/bob-cd/artifact-local
