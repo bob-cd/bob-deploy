@@ -1,7 +1,7 @@
 ## Deploying Bob
 
 This gathers reference deployments for [Bob](https://bob-cd.github.io/) on various platforms. The cluster is configured as follows with a single replica setup of:
-- [PostgreSQL](https://www.postgresql.org/)
+- [etcd](https://etcd.io)
 - [RabbitMQ](https://www.rabbitmq.com/)
 - [apiserver](https://github.com/bob-cd/bob/tree/main/apiserver)
 - [runner](https://github.com/bob-cd/bob/tree/main/runner)
