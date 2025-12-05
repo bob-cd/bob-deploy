@@ -94,7 +94,7 @@ services:
     ports:
       - 8002:8002
     volumes:
-      - logs:/opt/logs
+      - logs:/logs
 
 networks:
   bob-net:
