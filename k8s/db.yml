@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: bob-db
-          image: quay.io/coreos/etcd:v3.6.12
+          image: quay.io/coreos/etcd:v3.6.13
           volumeMounts:
             - name: bob-db-disk
               mountPath: /var/lib/etcd/data
