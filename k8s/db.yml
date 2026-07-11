@@ -16,21 +16,12 @@ spec:
     spec:
       containers:
         - name: bob-db
-          image: quay.io/coreos/etcd:v3.6.13
+          image: docker.io/library/nats
+          args:
+            - -js
           volumeMounts:
             - name: bob-db-disk
-              mountPath: /var/lib/etcd/data
-          env:
-            - name: ALLOW_NONE_AUTHENTICATION
-              value: "yes"
-            - name: ETCD_ADVERTISE_CLIENT_URLS
-              value: http://bob-db:2379
-            - name: ETCD_LISTEN_CLIENT_URLS
-              value: http://0.0.0.0:2379
-            - name: ETCD_NAME
-              value: bob-db
-            - name: ETCD_DATA_DIR
-              value: /var/lib/etcd/data
+              mountPath: /tmp/nats/jetstream # change this by mounting /etc/nats/nats-server.conf if needed
   volumeClaimTemplates:
     - metadata:
         name: bob-db-disk
@@ -51,4 +42,4 @@ spec:
   selector:
     app: bob-db
   ports:
-    - port: 2379
+    - port: 4222

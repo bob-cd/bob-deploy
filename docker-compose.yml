@@ -9,7 +9,7 @@ services:
       - storage
       - queue
     environment:
-      BOB_STORAGE_URLS: http://storage:2379
+      BOB_STORAGE_URLS: nats://storage:4222
       BOB_QUEUE_URL: amqp://queue:5672
       BOB_STREAM_URL: rabbitmq-stream://guest:guest@queue:5552/%2f
       BOB_QUEUE_API_URL: http://queue:15672/api
@@ -34,7 +34,7 @@ services:
       - queue
       - storage
     environment:
-      BOB_STORAGE_URLS: http://storage:2379
+      BOB_STORAGE_URLS: nats://storage:4222
       BOB_QUEUE_URL: amqp://queue:5672
       BOB_STREAM_URL: rabbitmq-stream://guest:guest@queue:5552/%2f
       BOB_QUEUE_API_URL: http://queue:15672/api
@@ -57,19 +57,15 @@ services:
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbitmq_stream advertised_host queue
 
   storage:
-    image: quay.io/coreos/etcd:v3.6.13
+    image: docker.io/library/nats
+    command:
+      - -js
     networks:
       - bob-net
     ports:
-      - 2379:2379
-    environment:
-      ALLOW_NONE_AUTHENTICATION: "yes"
-      ETCD_ADVERTISE_CLIENT_URLS: http://bob-etcd.etcd:2379
-      ETCD_LISTEN_CLIENT_URLS: http://0.0.0.0:2379
-      ETCD_NAME: bob-etcd
-      ETCD_DATA_DIR: /var/lib/etcd/data
+      - 4222:4222
     volumes:
-      - dbdata:/var/lib/etcd/data
+      - dbdata:/tmp/nats/jetstream # change this by mounting /etc/nats/nats-server.conf if needed
 
   artifact-local:
     image: ghcr.io/bob-cd/artifact-local
